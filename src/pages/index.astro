@@ -20,7 +20,7 @@ const founders = TEAM.filter((p) => p.founder);
   <!-- Trattamenti -->
   <section class="py-20" aria-labelledby="tratt-titolo">
     <div class="mx-auto max-w-6xl px-5">
-      <p class="text-sm font-semibold uppercase tracking-wider text-coral-600" data-reveal>I trattamenti</p>
+      <p class="text-sm font-semibold uppercase tracking-wider text-coral-700" data-reveal>I trattamenti</p>
       <h2 id="tratt-titolo" class="mt-2 font-display text-3xl font-semibold text-teal-900 md:text-5xl" data-reveal>
         Un approccio, tante competenze
       </h2>
@@ -33,9 +33,9 @@ const founders = TEAM.filter((p) => p.founder);
               data-reveal
               data-reveal-delay={i * 0.05}
             >
-              <h3 class="font-display text-lg font-semibold text-teal-900 group-hover:text-coral-600">{t.nome}</h3>
-              <p class="mt-2 text-sm text-ink/60">{t.sottotitolo}</p>
-              <span class="mt-4 inline-block text-sm font-semibold text-coral-500">Scopri →</span>
+              <h3 class="font-display text-lg font-semibold text-teal-900 group-hover:text-coral-700">{t.nome}</h3>
+              <p class="mt-2 text-sm text-ink/70">{t.sottotitolo}</p>
+              <span class="mt-4 inline-block text-sm font-semibold text-coral-700">Scopri →</span>
             </a>
           ))
         }
@@ -75,7 +75,7 @@ const founders = TEAM.filter((p) => p.founder);
   <!-- Team teaser -->
   <section class="py-20" aria-labelledby="team-titolo">
     <div class="mx-auto max-w-6xl px-5">
-      <p class="text-sm font-semibold uppercase tracking-wider text-coral-600" data-reveal>Il team</p>
+      <p class="text-sm font-semibold uppercase tracking-wider text-coral-700" data-reveal>Il team</p>
       <h2 id="team-titolo" class="mt-2 font-display text-3xl font-semibold text-teal-900 md:text-5xl" data-reveal>
         Prima le persone, poi i pazienti
       </h2>
@@ -84,7 +84,7 @@ const founders = TEAM.filter((p) => p.founder);
           founders.map((p) => (
             <article class="rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm" data-reveal>
               <h3 class="font-display text-xl font-semibold text-teal-900">{p.nome}</h3>
-              <p class="mt-1 text-sm font-medium text-coral-600">{p.ruolo}</p>
+              <p class="mt-1 text-sm font-medium text-coral-700">{p.ruolo}</p>
               <p class="mt-3 text-sm leading-relaxed text-ink/70">{p.bio.split('.').slice(0, 2).join('.')}.</p>
             </article>
           ))

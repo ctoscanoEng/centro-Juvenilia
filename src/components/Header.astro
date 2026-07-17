@@ -12,8 +12,8 @@ const current = Astro.url.pathname;
 
 <header class="fixed inset-x-0 top-0 z-50 backdrop-blur-md bg-paper/80 border-b border-teal-900/5">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-    <a href="/" class="font-display text-xl font-semibold tracking-tight text-teal-900" aria-label="Studio Juvenilia — Home">
-      Studio<span class="text-coral-500">Juvenilia</span>
+    <a href="/" class="font-display text-xl font-semibold tracking-tight text-teal-900" aria-label="StudioJuvenilia — Home">
+      Studio<span class="text-coral-700">Juvenilia</span>
     </a>
 
     <nav aria-label="Navigazione principale" class="hidden items-center gap-6 lg:flex">
@@ -23,8 +23,8 @@ const current = Astro.url.pathname;
             href={href}
             aria-current={current.startsWith(href) ? 'page' : undefined}
             class:list={[
-              'text-sm font-medium transition-colors hover:text-coral-500',
-              current.startsWith(href) ? 'text-coral-600' : 'text-ink/80',
+              'text-sm font-medium transition-colors hover:text-coral-700',
+              current.startsWith(href) ? 'text-coral-700' : 'text-ink/80',
             ]}
           >
             {label}

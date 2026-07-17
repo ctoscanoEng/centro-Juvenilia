@@ -28,6 +28,8 @@
   --color-coral-400: #ff8a65;
   --color-coral-500: #f46f4d;
   --color-coral-600: #d95535;
+  /* per testo su fondo chiaro: contrasto AA ≥ 4.5:1 */
+  --color-coral-700: #b8432a;
 
   /* Ambra di supporto */
   --color-amber-400: #f2b95c;

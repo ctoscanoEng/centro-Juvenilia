@@ -13,8 +13,8 @@ const posts = (await getCollection('blog', ({ data }) => !data.bozza)).sort(
 >
   <section class="py-16">
     <div class="mx-auto max-w-4xl px-5">
-      <nav aria-label="Percorso" class="text-sm text-ink/50">
-        <a href="/" class="hover:text-coral-600">Home</a> / <span>Blog</span>
+      <nav aria-label="Percorso" class="text-sm text-ink/70">
+        <a href="/" class="hover:text-coral-700">Home</a> / <span>Blog</span>
       </nav>
       <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
         Capire il proprio corpo
@@ -31,12 +31,12 @@ const posts = (await getCollection('blog', ({ data }) => !data.bozza)).sort(
               class="block rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
               data-reveal
             >
-              <time datetime={post.data.data.toISOString()} class="text-xs font-semibold uppercase tracking-wider text-coral-600">
+              <time datetime={post.data.data.toISOString()} class="text-xs font-semibold uppercase tracking-wider text-coral-700">
                 {post.data.data.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
               </time>
               <h2 class="mt-2 font-display text-2xl font-semibold text-teal-900">{post.data.titolo}</h2>
               <p class="mt-2 text-sm text-ink/70">{post.data.descrizione}</p>
-              <span class="mt-4 inline-block text-sm font-semibold text-coral-500">Leggi →</span>
+              <span class="mt-4 inline-block text-sm font-semibold text-coral-700">Leggi →</span>
             </a>
           ))
         }

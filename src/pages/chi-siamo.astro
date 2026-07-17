@@ -19,8 +19,8 @@ const personSchema = TEAM.filter((p) => !p.placeholder).map((p) => ({
 >
   <section class="py-16">
     <div class="mx-auto max-w-5xl px-5">
-      <nav aria-label="Percorso" class="text-sm text-ink/50">
-        <a href="/" class="hover:text-coral-600">Home</a> / <span>Chi siamo</span>
+      <nav aria-label="Percorso" class="text-sm text-ink/70">
+        <a href="/" class="hover:text-coral-700">Home</a> / <span>Chi siamo</span>
       </nav>
       <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
         Le mani (e le teste) dello studio
@@ -45,15 +45,15 @@ const personSchema = TEAM.filter((p) => !p.placeholder).map((p) => ({
               <div class="flex flex-wrap items-baseline justify-between gap-2">
                 <h2 class="font-display text-2xl font-semibold text-teal-900">{p.nome}</h2>
                 {p.founder && (
-                  <span class="rounded-full bg-coral-100 px-3 py-1 text-xs font-semibold text-coral-600">Co-founder</span>
+                  <span class="rounded-full bg-coral-100 px-3 py-1 text-xs font-semibold text-coral-700">Co-founder</span>
                 )}
               </div>
-              <p class="mt-1 font-medium text-coral-600">{p.ruolo}</p>
+              <p class="mt-1 font-medium text-coral-700">{p.ruolo}</p>
               <p class="mt-4 leading-relaxed text-ink/80">{p.bio}</p>
 
               {p.formazione.length > 0 && (
                 <div class="mt-6">
-                  <h3 class="text-sm font-semibold uppercase tracking-wider text-ink/50">Formazione</h3>
+                  <h3 class="text-sm font-semibold uppercase tracking-wider text-ink/70">Formazione</h3>
                   <ul class="mt-2 space-y-1 text-sm text-ink/75">
                     {p.formazione.map((f) => (
                       <li>· {f}</li>
@@ -74,7 +74,7 @@ const personSchema = TEAM.filter((p) => !p.placeholder).map((p) => ({
         }
       </div>
 
-      <p class="mt-10 text-sm text-ink/50" data-reveal>
+      <p class="mt-10 text-sm text-ink/70" data-reveal>
         Allo studio collabora inoltre una rete multidisciplinare di specialisti (medico dello sport,
         nutrizionista, preparatore atletico) attivata in base alle esigenze del percorso.
       </p>

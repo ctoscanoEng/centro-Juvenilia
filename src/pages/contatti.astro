@@ -14,8 +14,8 @@ const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${en
 >
   <section class="py-16">
     <div class="mx-auto max-w-6xl px-5">
-      <nav aria-label="Percorso" class="text-sm text-ink/50">
-        <a href="/" class="hover:text-coral-600">Home</a> / <span>Contatti</span>
+      <nav aria-label="Percorso" class="text-sm text-ink/70">
+        <a href="/" class="hover:text-coral-700">Home</a> / <span>Contatti</span>
       </nav>
       <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
         Parliamone di persona
@@ -67,7 +67,7 @@ const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${en
             </select>
 
             <div id="slots" class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3" aria-live="polite">
-              <p class="col-span-full text-sm text-ink/50">Caricamento disponibilità…</p>
+              <p class="col-span-full text-sm text-ink/70">Caricamento disponibilità…</p>
             </div>
 
             <form id="booking-form" class="mt-5 hidden space-y-3">
@@ -88,7 +88,7 @@ const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${en
               <input required name="nome" placeholder="Nome e cognome *" autocomplete="name" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
               <input required name="email" type="email" placeholder="Email *" autocomplete="email" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
               <textarea required name="messaggio" rows="4" placeholder="Come possiamo aiutarti? *" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm"></textarea>
-              <p class="text-xs leading-relaxed text-ink/60">
+              <p class="text-xs leading-relaxed text-ink/70">
                 Ti chiediamo di <strong>non inserire nel messaggio informazioni dettagliate sulla tua
                 salute</strong>: ne parleremo di persona o al telefono.
               </p>
@@ -131,12 +131,12 @@ const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${en
   const giorniIt = ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'];
 
   async function carica() {
-    slotsEl.innerHTML = '<p class="col-span-full text-sm text-ink/50">Caricamento disponibilità…</p>';
+    slotsEl.innerHTML = '<p class="col-span-full text-sm text-ink/70">Caricamento disponibilità…</p>';
     form.classList.add('hidden');
     esitoEl.classList.add('hidden');
     const slots = await bookingProvider.disponibilita(select.value, new Date(), 7);
     if (!slots.length) {
-      slotsEl.innerHTML = '<p class="col-span-full text-sm text-ink/50">Nessuna disponibilità nei prossimi giorni: chiamaci!</p>';
+      slotsEl.innerHTML = '<p class="col-span-full text-sm text-ink/70">Nessuna disponibilità nei prossimi giorni: chiamaci!</p>';
       return;
     }
     slotsEl.innerHTML = '';

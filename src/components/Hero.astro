@@ -1,0 +1,135 @@
+---
+/*
+  Hero "ingresso nello studio": scena SVG illustrata a mano, animata con GSAP.
+  Al load: le quinte si aprono come una porta e lo studio "prende vita".
+  Allo scroll: leggera parallasse dei piani. Tutto degrada a scena statica
+  con prefers-reduced-motion.
+*/
+---
+
+<section class="relative overflow-hidden bg-gradient-to-b from-teal-50 to-paper" aria-label="Presentazione dello studio">
+  <div class="mx-auto grid min-h-[calc(100svh-4rem)] max-w-6xl items-center gap-10 px-5 py-14 lg:grid-cols-[1.1fr_1fr]">
+    <div>
+      <p id="hero-eyebrow" class="text-sm font-semibold uppercase tracking-wider text-coral-600">
+        Fisioterapia · Osteopatia · Riabilitazione sportiva — Caserta
+      </p>
+      <h1 id="hero-title" class="mt-4 font-display text-4xl font-semibold leading-[1.05] text-teal-900 md:text-6xl">
+        Il movimento è la <em class="text-coral-500 not-italic">cura</em>.<br />
+        Noi siamo il percorso.
+      </h1>
+      <p id="hero-sub" class="mt-6 max-w-xl text-lg text-ink/70">
+        Dal primo giorno di dolore al ritorno alla tua vita — e al tuo sport. In Via Giotto 28, un
+        team multidisciplinare e le tecnologie del progetto Juvenilia Lab.
+      </p>
+      <div id="hero-cta" class="mt-8 flex flex-wrap gap-4">
+        <a href="/contatti#prenota" data-magnetic class="rounded-full bg-coral-500 px-7 py-3 font-semibold text-white shadow-lg shadow-coral-500/25 transition-colors hover:bg-coral-600">
+          Prenota una valutazione
+        </a>
+        <a href="#percorso-recupero" class="rounded-full border-2 border-teal-700 px-7 py-3 font-semibold text-teal-700 transition-colors hover:bg-teal-700 hover:text-paper">
+          Dove ti fa male?
+        </a>
+      </div>
+    </div>
+
+    <!-- Scena illustrata: lo studio -->
+    <svg
+      id="hero-scene"
+      viewBox="0 0 520 460"
+      class="mx-auto w-full max-w-lg"
+      role="img"
+      aria-label="Illustrazione dello Studio Juvenilia: lettino, macchinario isocinetico e un paziente accolto sulla porta"
+    >
+      <!-- stanza -->
+      <g id="scene-room">
+        <rect x="30" y="40" width="460" height="330" rx="18" fill="#ffffff" />
+        <rect x="30" y="300" width="460" height="70" rx="10" fill="#d5eaea" />
+        <circle cx="120" cy="110" r="26" fill="#ffe8e0" />
+        <path d="M104 110h32M120 94v32" stroke="#f46f4d" stroke-width="5" stroke-linecap="round" />
+      </g>
+
+      <!-- lettino da trattamento -->
+      <g id="scene-bed">
+        <rect x="70" y="245" width="170" height="22" rx="11" fill="#1c5a5e" />
+        <rect x="82" y="267" width="10" height="48" rx="4" fill="#123c40" />
+        <rect x="216" y="267" width="10" height="48" rx="4" fill="#123c40" />
+        <rect x="60" y="232" width="52" height="18" rx="9" fill="#2e7d7d" />
+      </g>
+
+      <!-- macchinario isocinetico stilizzato -->
+      <g id="scene-machine">
+        <rect x="330" y="150" width="26" height="165" rx="10" fill="#123c40" />
+        <rect x="300" y="130" width="120" height="26" rx="13" fill="#1c5a5e" />
+        <circle cx="420" cy="143" r="26" fill="#2e7d7d" />
+        <circle cx="420" cy="143" r="11" fill="#f2b95c" />
+        <rect x="402" y="170" width="14" height="95" rx="7" fill="#1c5a5e" transform="rotate(-14 409 170)" />
+        <rect x="352" y="300" width="110" height="16" rx="8" fill="#123c40" />
+        <circle id="machine-light" cx="343" cy="170" r="6" fill="#f46f4d" />
+      </g>
+
+      <!-- personaggio: paziente accolto -->
+      <g id="scene-person">
+        <circle cx="185" cy="176" r="20" fill="#f2b95c" />
+        <path d="M185 196v52" stroke="#10282e" stroke-width="10" stroke-linecap="round" />
+        <path d="M185 210l-26 20M185 210l24 24" stroke="#10282e" stroke-width="8" stroke-linecap="round" />
+        <path d="M185 248l-16 34M185 248l18 34" stroke="#10282e" stroke-width="8" stroke-linecap="round" />
+        <path d="M172 170a16 16 0 0 1 26 0" fill="none" stroke="#10282e" stroke-width="4" stroke-linecap="round" />
+      </g>
+
+      <!-- pianta -->
+      <g id="scene-plant">
+        <rect x="452" y="330" width="26" height="26" rx="4" fill="#d95535" />
+        <path d="M465 330c-2-24-16-30-22-34m22 34c2-22 14-32 20-36m-20 36v-44" stroke="#2e7d7d" stroke-width="6" stroke-linecap="round" fill="none" />
+      </g>
+
+      <!-- quinte "porta d'ingresso" -->
+      <rect id="door-left" x="0" y="0" width="262" height="460" fill="#123c40" />
+      <rect id="door-right" x="258" y="0" width="262" height="460" fill="#123c40" />
+      <text id="door-label" x="260" y="238" text-anchor="middle" fill="#f9f7f3" font-size="22" font-family="Fraunces Variable, serif" letter-spacing="4">
+        STUDIO JUVENILIA
+      </text>
+    </svg>
+  </div>
+
+  <div class="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center" aria-hidden="true">
+    <div id="scroll-hint" class="rounded-full border border-teal-900/20 px-4 py-1 text-xs text-teal-900/60">
+      scorri per iniziare il percorso ↓
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, prefersReducedMotion } from '../lib/motion';
+
+  if (prefersReducedMotion()) {
+    // scena già completa e statica: rimuoviamo solo le quinte
+    ['door-left', 'door-right', 'door-label'].forEach((id) =>
+      document.getElementById(id)?.remove(),
+    );
+  } else {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    tl.set(['#scene-bed', '#scene-machine', '#scene-person', '#scene-plant'], { autoAlpha: 0 })
+      .to('#door-label', { autoAlpha: 0, duration: 0.5, delay: 0.4 })
+      .to('#door-left', { xPercent: -100, duration: 1.1 }, '<')
+      .to('#door-right', { xPercent: 100, duration: 1.1 }, '<')
+      .fromTo('#scene-room', { scale: 0.94, transformOrigin: '50% 50%' }, { scale: 1, duration: 1 }, '<0.2')
+      .to('#scene-bed', { autoAlpha: 1, y: 0, duration: 0.6, startAt: { y: 24 } }, '-=0.5')
+      .to('#scene-machine', { autoAlpha: 1, duration: 0.6, startAt: { y: 24 } }, '-=0.35')
+      .to('#scene-person', { autoAlpha: 1, duration: 0.6, startAt: { x: -20 } }, '-=0.3')
+      .to('#scene-plant', { autoAlpha: 1, duration: 0.5 }, '-=0.3')
+      .from(['#hero-eyebrow', '#hero-title', '#hero-sub', '#hero-cta'], { y: 30, autoAlpha: 0, stagger: 0.12, duration: 0.8 }, '-=0.9');
+
+    // il macchinario "respira": spia che pulsa
+    gsap.to('#machine-light', { opacity: 0.25, repeat: -1, yoyo: true, duration: 0.9, ease: 'sine.inOut' });
+
+    // parallasse leggera allo scroll
+    gsap.to('#scene-machine', {
+      y: -18,
+      scrollTrigger: { trigger: '#hero-scene', start: 'top top', end: 'bottom top', scrub: true },
+    });
+    gsap.to('#scene-person', {
+      y: -8,
+      scrollTrigger: { trigger: '#hero-scene', start: 'top top', end: 'bottom top', scrub: true },
+    });
+    gsap.to('#scroll-hint', { autoAlpha: 0, scrollTrigger: { trigger: '#hero-scene', start: '5% top', end: '20% top', scrub: true } });
+  }
+</script>

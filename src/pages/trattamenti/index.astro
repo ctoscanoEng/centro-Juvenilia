@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import { TRATTAMENTI } from '../../data/trattamenti';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Trattamenti', item: new URL('/trattamenti', Astro.site).href },
+  ],
+};
+---
+
+<Base
+  title="Trattamenti | Studio Juvenilia Caserta — Fisioterapia, osteopatia e altro"
+  description="Tutti i trattamenti dello Studio Juvenilia a Caserta: fisioterapia, osteopatia, posturologia, riabilitazione sportiva, tecarterapia, onde d'urto e rieducazione isocinetica."
+  schema={[breadcrumb]}
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-5">
+      <nav aria-label="Percorso" class="text-sm text-ink/50">
+        <a href="/" class="hover:text-coral-600">Home</a> / <span>Trattamenti</span>
+      </nav>
+      <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
+        I nostri trattamenti
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-ink/70" data-reveal>
+        Ogni percorso inizia da una valutazione e viene costruito su di te. Qui trovi le aree in cui
+        lavoriamo ogni giorno.
+      </p>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        {
+          TRATTAMENTI.map((t, i) => (
+            <a
+              href={`/trattamenti/${t.slug}`}
+              class="group rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              data-reveal
+              data-reveal-delay={i * 0.04}
+            >
+              <h2 class="font-display text-2xl font-semibold text-teal-900 group-hover:text-coral-600">{t.nome}</h2>
+              <p class="mt-2 text-ink/60">{t.sottotitolo}</p>
+              <p class="mt-4 text-sm leading-relaxed text-ink/70">{t.descrizione[0].slice(0, 140)}…</p>
+              <span class="mt-5 inline-block font-semibold text-coral-500">Approfondisci →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

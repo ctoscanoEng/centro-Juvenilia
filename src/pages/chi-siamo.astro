@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import { TEAM } from '../data/team';
+
+const personSchema = TEAM.filter((p) => !p.placeholder).map((p) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: p.nome,
+  jobTitle: p.ruolo,
+  worksFor: { '@id': new URL('/', Astro.site).href + '#clinic' },
+  url: new URL(`/chi-siamo#${p.slug}`, Astro.site).href,
+}));
+---
+
+<Base
+  title="Chi siamo | Il team dello Studio Juvenilia — Caserta"
+  description="Il team dello Studio Juvenilia di Caserta: fisioterapisti, osteopati e posturologi con esperienza nella riabilitazione sportiva di alto livello. Conosci chi si prenderà cura di te."
+  schema={personSchema}
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-5xl px-5">
+      <nav aria-label="Percorso" class="text-sm text-ink/50">
+        <a href="/" class="hover:text-coral-600">Home</a> / <span>Chi siamo</span>
+      </nav>
+      <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
+        Le mani (e le teste) dello studio
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink/70" data-reveal>
+        Lo Studio Juvenilia nasce a Caserta dalla passione di un gruppo di professionisti per la
+        riabilitazione fatta bene: valutazioni serie, percorsi personalizzati e una lunga storia al
+        fianco dello sport del territorio.
+      </p>
+
+      <div class="mt-14 space-y-8">
+        {
+          TEAM.map((p) => (
+            <article
+              id={p.slug}
+              class:list={[
+                'scroll-mt-24 rounded-3xl border bg-white p-8 shadow-sm',
+                p.placeholder ? 'border-dashed border-teal-300 opacity-80' : 'border-teal-900/10',
+              ]}
+              data-reveal
+            >
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h2 class="font-display text-2xl font-semibold text-teal-900">{p.nome}</h2>
+                {p.founder && (
+                  <span class="rounded-full bg-coral-100 px-3 py-1 text-xs font-semibold text-coral-600">Co-founder</span>
+                )}
+              </div>
+              <p class="mt-1 font-medium text-coral-600">{p.ruolo}</p>
+              <p class="mt-4 leading-relaxed text-ink/80">{p.bio}</p>
+
+              {p.formazione.length > 0 && (
+                <div class="mt-6">
+                  <h3 class="text-sm font-semibold uppercase tracking-wider text-ink/50">Formazione</h3>
+                  <ul class="mt-2 space-y-1 text-sm text-ink/75">
+                    {p.formazione.map((f) => (
+                      <li>· {f}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {p.tecniche.length > 0 && (
+                <div class="mt-5 flex flex-wrap gap-2">
+                  {p.tecniche.map((tec) => (
+                    <span class="rounded-full bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700">{tec}</span>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mt-10 text-sm text-ink/50" data-reveal>
+        Allo studio collabora inoltre una rete multidisciplinare di specialisti (medico dello sport,
+        nutrizionista, preparatore atletico) attivata in base alle esigenze del percorso.
+      </p>
+    </div>
+  </section>
+</Base>

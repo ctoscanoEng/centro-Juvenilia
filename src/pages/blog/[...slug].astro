@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.bozza);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.titolo,
+    description: post.data.descrizione,
+    datePublished: post.data.data.toISOString(),
+    author: { '@type': 'Organization', name: post.data.autore },
+    publisher: { '@id': new URL('/', Astro.site).href + '#clinic' },
+  },
+];
+---
+
+<Base title={`${post.data.titolo} | Blog Studio Juvenilia`} description={post.data.descrizione} schema={schema}>
+  <article class="py-16">
+    <div class="prose-custom mx-auto max-w-3xl px-5">
+      <nav aria-label="Percorso" class="text-sm text-ink/50">
+        <a href="/" class="hover:text-coral-600">Home</a> /
+        <a href="/blog" class="hover:text-coral-600">Blog</a> / <span>{post.data.titolo}</span>
+      </nav>
+      <time datetime={post.data.data.toISOString()} class="mt-6 block text-xs font-semibold uppercase tracking-wider text-coral-600">
+        {post.data.data.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </time>
+      <h1 class="mt-2 font-display text-3xl font-semibold text-teal-900 md:text-5xl">{post.data.titolo}</h1>
+      <div class="mt-8 space-y-4 leading-relaxed text-ink/85 [&_a]:text-teal-700 [&_a]:underline [&_h2]:mt-8 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-teal-900 [&_li]:ml-5 [&_ol]:list-decimal [&_ul]:list-disc [&_hr]:my-8 [&_em]:text-ink/60">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>

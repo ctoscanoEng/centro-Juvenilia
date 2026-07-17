@@ -1,0 +1,54 @@
+---
+import { STUDIO } from '../data/studio';
+const anno = new Date().getFullYear();
+---
+
+<footer class="bg-teal-900 text-paper">
+  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
+    <div>
+      <p class="font-display text-2xl font-semibold">Studio<span class="text-coral-400">Juvenilia</span></p>
+      <p class="mt-3 max-w-xs text-sm text-paper/70">
+        Fisioterapia, osteopatia e riabilitazione sportiva a Caserta. Ti accompagniamo dal dolore al ritorno al movimento.
+      </p>
+      <a href={STUDIO.social.instagram} rel="noopener" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-paper/80 hover:text-coral-400">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        @studio.juvenilia
+      </a>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-paper/60">Dove siamo</h2>
+      <address class="mt-3 text-sm not-italic leading-relaxed text-paper/80">
+        {STUDIO.indirizzo.via}<br />
+        {STUDIO.indirizzo.cap} {STUDIO.indirizzo.citta} ({STUDIO.indirizzo.provincia})
+      </address>
+      <ul class="mt-3 space-y-1 text-sm text-paper/80">
+        {STUDIO.orari.map(({ giorni, ore }) => (
+          <li><span class="text-paper/60">{giorni}:</span> {ore}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-paper/60">Contatti</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a class="hover:text-coral-400" href={`tel:${STUDIO.telefono.replace(/\s/g, '')}`}>{STUDIO.telefono}</a></li>
+        <li><a class="hover:text-coral-400" href={`mailto:${STUDIO.email}`}>{STUDIO.email}</a></li>
+        <li>
+          <a class="hover:text-coral-400" rel="noopener" target="_blank" href={`https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}`}>
+            Scrivici su WhatsApp
+          </a>
+        </li>
+      </ul>
+      <ul class="mt-6 space-y-1 text-xs text-paper/50">
+        <li><a class="hover:text-paper" href="/privacy">Privacy policy</a></li>
+        <li><a class="hover:text-paper" href="/cookie-policy">Cookie policy</a></li>
+        <li><a class="hover:text-paper" href="/note-legali">Note legali</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-paper/10 px-5 py-4 text-center text-xs text-paper/50">
+    © {anno} {STUDIO.nome} — P.IVA [PLACEHOLDER] · Le informazioni presenti sul sito non sostituiscono il parere del medico.
+  </div>
+</footer>

@@ -1,0 +1,36 @@
+---
+/*
+  Banner cookie minimale: il sito usa SOLO cookie tecnici (nessuna profilazione,
+  nessun analytics di terze parti), quindi è sufficiente un'informativa breve.
+  Se in futuro si aggiungono analytics/marketing, sostituire con una CMP con
+  consenso preventivo (GDPR + Linee guida Garante 2021).
+*/
+---
+
+<div
+  id="cookie-banner"
+  role="region"
+  aria-label="Informativa cookie"
+  class="fixed bottom-4 left-1/2 z-50 hidden w-[min(94vw,34rem)] -translate-x-1/2 rounded-2xl border border-teal-900/10 bg-white p-4 shadow-xl"
+>
+  <p class="text-sm text-ink/80">
+    Questo sito utilizza esclusivamente cookie tecnici necessari al funzionamento. Nessun cookie di
+    profilazione. <a href="/cookie-policy" class="underline text-teal-700">Leggi la cookie policy</a>.
+  </p>
+  <button
+    id="cookie-ok"
+    class="mt-3 rounded-full bg-teal-700 px-4 py-1.5 text-sm font-semibold text-paper hover:bg-teal-900"
+  >
+    Ho capito
+  </button>
+</div>
+
+<script>
+  const KEY = 'sj-cookie-notice';
+  const banner = document.getElementById('cookie-banner');
+  if (banner && !localStorage.getItem(KEY)) banner.classList.remove('hidden');
+  document.getElementById('cookie-ok')?.addEventListener('click', () => {
+    localStorage.setItem(KEY, '1');
+    banner?.classList.add('hidden');
+  });
+</script>

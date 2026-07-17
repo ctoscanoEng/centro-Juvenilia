@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { STUDIO } from '../data/studio';
+
+/*
+  Pagina "ponte" per il flusso recensioni: lo studio la condivide con i pazienti
+  soddisfatti (link breve, QR stampato in reception, messaggio WhatsApp post-ciclo).
+  Porta dritti alla recensione Google → leva principale del local SEO.
+*/
+---
+
+<Base
+  title="Lascia una recensione | Studio Juvenilia Caserta"
+  description="Racconta la tua esperienza allo Studio Juvenilia di Caserta: la tua recensione su Google aiuta altre persone a trovare il percorso giusto."
+>
+  <section class="flex min-h-[70vh] items-center py-16">
+    <div class="mx-auto max-w-xl px-5 text-center">
+      <svg viewBox="0 0 120 40" class="mx-auto w-40" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <path
+            d={`M${12 + i * 24} 6l3.6 7.6 8.4 1.1-6.2 5.8 1.6 8.3-7.4-4.1-7.4 4.1 1.6-8.3-6.2-5.8 8.4-1.1z`}
+            fill="#f2b95c"
+          />
+        ))}
+      </svg>
+      <h1 class="mt-6 font-display text-3xl font-semibold text-teal-900 md:text-4xl">
+        Com'è andata con noi?
+      </h1>
+      <p class="mt-4 text-ink/70">
+        Se il percorso ti è stato utile, dedicaci 60 secondi: la tua recensione aiuta chi ha il tuo
+        stesso problema a trovare la strada giusta.
+      </p>
+      <a
+        href={STUDIO.googleReviewUrl}
+        rel="noopener"
+        target="_blank"
+        data-magnetic
+        class="mt-8 inline-block rounded-full bg-coral-500 px-9 py-3.5 font-semibold text-white shadow-lg shadow-coral-500/25 hover:bg-coral-600"
+      >
+        Scrivi la recensione su Google
+      </a>
+      <p class="mt-6 text-xs text-ink/50">
+        Qualcosa non è andato come speravi? <a href="/contatti" class="underline">Parlane prima con noi</a>:
+        ci teniamo a rimediare.
+      </p>
+    </div>
+  </section>
+</Base>

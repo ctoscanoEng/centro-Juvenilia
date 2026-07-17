@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import { STUDIO } from '../data/studio';
+
+/*
+  Regola del progetto: MAI inventare recensioni. Questa pagina mostra le
+  partnership storiche [DA CONFERMARE] e predispone gli spazi per le
+  testimonianze reali che lo studio fornirà.
+*/
+const partnership = [
+  'Juvecaserta',
+  'Volalto Caserta',
+  'Progreditur Marcianise',
+  'Pomigliano Calcio',
+  'TKD Caserta',
+  'Time Limit',
+];
+---
+
+<Base
+  title="Testimonianze e partnership sportive | Studio Juvenilia Caserta"
+  description="Le società sportive che hanno scelto lo Studio Juvenilia di Caserta e le storie di recupero dei nostri pazienti. Leggi le recensioni e raccontaci la tua."
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-5xl px-5">
+      <nav aria-label="Percorso" class="text-sm text-ink/50">
+        <a href="/" class="hover:text-coral-600">Home</a> / <span>Testimonianze</span>
+      </nav>
+      <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
+        Le storie contano più delle promesse
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink/70" data-reveal>
+        Non ti diremo che «risolviamo tutto»: la normativa sulla pubblicità sanitaria non lo
+        permette, e non sarebbe nemmeno vero. Preferiamo lasciar parlare chi si è affidato a noi.
+      </p>
+
+      <h2 class="mt-14 font-display text-2xl font-semibold text-teal-900" data-reveal>
+        Lo sport che si è fidato di noi
+      </h2>
+      <p class="mt-2 text-sm text-ink/50" data-reveal>
+        Partnership storiche del centro. [PLACEHOLDER: confermare elenco attuale con lo studio]
+      </p>
+      <ul class="mt-6 flex flex-wrap gap-3" data-reveal>
+        {
+          partnership.map((p) => (
+            <li class="rounded-full border border-teal-300 bg-white px-5 py-2 text-sm font-medium text-teal-900">{p}</li>
+          ))
+        }
+      </ul>
+
+      <h2 class="mt-14 font-display text-2xl font-semibold text-teal-900" data-reveal>
+        Le parole dei pazienti
+      </h2>
+      <div class="mt-6 grid gap-5 md:grid-cols-2" data-reveal>
+        <div class="rounded-3xl border-2 border-dashed border-teal-300 p-8 text-center text-sm text-ink/50">
+          [PLACEHOLDER: testimonianza reale — con consenso scritto del paziente]
+        </div>
+        <div class="rounded-3xl border-2 border-dashed border-teal-300 p-8 text-center text-sm text-ink/50">
+          [PLACEHOLDER: testimonianza reale — con consenso scritto del paziente]
+        </div>
+      </div>
+
+      <div class="mt-14 rounded-3xl bg-teal-900 p-10 text-center text-paper" data-reveal>
+        <h2 class="font-display text-2xl font-semibold">Sei stato bene con noi?</h2>
+        <p class="mx-auto mt-3 max-w-xl text-paper/75">
+          La tua recensione aiuta altre persone con il tuo stesso problema a trovarci. Bastano 60
+          secondi.
+        </p>
+        <a
+          href={STUDIO.googleReviewUrl}
+          rel="noopener"
+          target="_blank"
+          data-magnetic
+          class="mt-6 inline-block rounded-full bg-coral-500 px-8 py-3 font-semibold text-white hover:bg-coral-600"
+        >
+          Lascia una recensione su Google
+        </a>
+        <p class="mt-4 text-xs text-paper/50">Link diretto al profilo Google dello studio. [PLACEHOLDER: place ID reale]</p>
+      </div>
+    </div>
+  </section>
+</Base>

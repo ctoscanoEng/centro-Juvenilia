@@ -1,17 +1,118 @@
 ---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import PercorsoPaziente from '../components/PercorsoPaziente.astro';
+import CorpoInterattivo from '../components/CorpoInterattivo.astro';
+import { TRATTAMENTI } from '../data/trattamenti';
+import { TEAM } from '../data/team';
 
+const founders = TEAM.filter((p) => p.founder);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base
+  title="Studio Juvenilia — Fisioterapia e riabilitazione sportiva a Caserta"
+  description="Centro di fisioterapia, osteopatia e riabilitazione sportiva a Caserta, Via Giotto 28. Percorsi personalizzati, tecnologie avanzate e il progetto Juvenilia Lab. Prenota una valutazione."
+>
+  <Hero />
+  <PercorsoPaziente />
+  <CorpoInterattivo />
+
+  <!-- Trattamenti -->
+  <section class="py-20" aria-labelledby="tratt-titolo">
+    <div class="mx-auto max-w-6xl px-5">
+      <p class="text-sm font-semibold uppercase tracking-wider text-coral-600" data-reveal>I trattamenti</p>
+      <h2 id="tratt-titolo" class="mt-2 font-display text-3xl font-semibold text-teal-900 md:text-5xl" data-reveal>
+        Un approccio, tante competenze
+      </h2>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          TRATTAMENTI.map((t, i) => (
+            <a
+              href={`/trattamenti/${t.slug}`}
+              class="group rounded-3xl border border-teal-900/10 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              data-reveal
+              data-reveal-delay={i * 0.05}
+            >
+              <h3 class="font-display text-lg font-semibold text-teal-900 group-hover:text-coral-600">{t.nome}</h3>
+              <p class="mt-2 text-sm text-ink/60">{t.sottotitolo}</p>
+              <span class="mt-4 inline-block text-sm font-semibold text-coral-500">Scopri →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Juvenilia Lab teaser (anima dark "Sport Lab") -->
+  <section class="bg-teal-900 py-20 text-paper" aria-labelledby="lab-titolo">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-5 lg:grid-cols-2">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-coral-400" data-reveal>Il progetto di punta</p>
+        <h2 id="lab-titolo" class="mt-2 font-display text-3xl font-semibold md:text-5xl" data-reveal>
+          Juvenilia <span class="text-coral-400">Lab</span>
+        </h2>
+        <p class="mt-4 max-w-xl text-paper/75" data-reveal>
+          Prevenzione infortuni, riatletizzazione e test isocinetici: il laboratorio dove gli atleti
+          — professionisti e amatori — costruiscono il proprio ritorno in campo su dati oggettivi.
+        </p>
+        <a href="/juvenilia-lab" data-magnetic class="mt-8 inline-block rounded-full bg-coral-500 px-7 py-3 font-semibold text-white hover:bg-coral-600" data-reveal>
+          Entra nel Lab
+        </a>
+      </div>
+      <svg viewBox="0 0 400 260" class="w-full" role="img" aria-label="Illustrazione: atleta al lavoro sul macchinario isocinetico" data-reveal>
+        <rect x="20" y="210" width="360" height="14" rx="7" fill="#1c5a5e" />
+        <rect x="60" y="80" width="20" height="132" rx="9" fill="#2e7d7d" />
+        <circle cx="70" cy="66" r="20" fill="#7fbfbf" />
+        <circle cx="70" cy="66" r="8" fill="#f2b95c" />
+        <path d="M96 132h70" stroke="#f46f4d" stroke-width="10" stroke-linecap="round" />
+        <circle cx="196" cy="110" r="16" fill="#f2b95c" />
+        <path d="M196 126v40l-24 34m24-34l26 32M196 140l-30-14m30 14l34-6" stroke="#f9f7f3" stroke-width="8" stroke-linecap="round" fill="none" />
+        <path d="M280 190c22-46 60-46 88-70" stroke="#7fbfbf" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round" fill="none" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Team teaser -->
+  <section class="py-20" aria-labelledby="team-titolo">
+    <div class="mx-auto max-w-6xl px-5">
+      <p class="text-sm font-semibold uppercase tracking-wider text-coral-600" data-reveal>Il team</p>
+      <h2 id="team-titolo" class="mt-2 font-display text-3xl font-semibold text-teal-900 md:text-5xl" data-reveal>
+        Prima le persone, poi i pazienti
+      </h2>
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        {
+          founders.map((p) => (
+            <article class="rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm" data-reveal>
+              <h3 class="font-display text-xl font-semibold text-teal-900">{p.nome}</h3>
+              <p class="mt-1 text-sm font-medium text-coral-600">{p.ruolo}</p>
+              <p class="mt-3 text-sm leading-relaxed text-ink/70">{p.bio.split('.').slice(0, 2).join('.')}.</p>
+            </article>
+          ))
+        }
+      </div>
+      <a href="/chi-siamo" class="mt-8 inline-block font-semibold text-teal-700 underline-offset-4 hover:underline" data-reveal>
+        Conosci tutto il team →
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA finale -->
+  <section class="bg-coral-100 py-20" aria-labelledby="cta-titolo">
+    <div class="mx-auto max-w-3xl px-5 text-center">
+      <h2 id="cta-titolo" class="font-display text-3xl font-semibold text-teal-900 md:text-4xl" data-reveal>
+        Il primo passo è una valutazione.
+      </h2>
+      <p class="mt-4 text-ink/70" data-reveal>
+        Raccontaci il tuo problema: costruiamo insieme il percorso per risolverlo.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal>
+        <a href="/contatti#prenota" data-magnetic class="rounded-full bg-coral-500 px-8 py-3 font-semibold text-white shadow-lg shadow-coral-500/25 hover:bg-coral-600">
+          Prenota ora
+        </a>
+        <a href="/contatti" class="rounded-full border-2 border-teal-700 px-8 py-3 font-semibold text-teal-700 hover:bg-teal-700 hover:text-paper">
+          Contattaci
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

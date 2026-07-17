@@ -1,0 +1,54 @@
+---
+import { STUDIO } from '../data/studio';
+
+interface Props {
+  /** JSON-LD aggiuntivi specifici di pagina (Person, FAQPage, BreadcrumbList…) */
+  extra?: Record<string, unknown>[];
+}
+
+const { extra = [] } = Astro.props;
+
+const clinic = {
+  '@context': 'https://schema.org',
+  '@type': ['MedicalClinic', 'LocalBusiness'],
+  '@id': new URL('/', Astro.site).href + '#clinic',
+  name: STUDIO.nome,
+  description: STUDIO.descrizione,
+  url: Astro.site?.href,
+  telephone: STUDIO.telefono,
+  email: STUDIO.email,
+  medicalSpecialty: ['Physiotherapy', 'SportsMedicine'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: STUDIO.indirizzo.via,
+    postalCode: STUDIO.indirizzo.cap,
+    addressLocality: STUDIO.indirizzo.citta,
+    addressRegion: STUDIO.indirizzo.regione,
+    addressCountry: 'IT',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: STUDIO.geo.lat,
+    longitude: STUDIO.geo.lng,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '20:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: '08:00',
+      closes: '13:00',
+    },
+  ],
+  sameAs: [STUDIO.social.instagram],
+};
+
+const blocks = [clinic, ...extra];
+---
+
+{blocks.map((b) => <script type="application/ld+json" set:html={JSON.stringify(b)} />)}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# [PLACEHOLDER] aggiornare col dominio definitivo al deploy
+Sitemap: https://www.studiojuvenilia.it/sitemap-index.xml

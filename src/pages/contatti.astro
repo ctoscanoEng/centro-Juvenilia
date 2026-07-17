@@ -1,0 +1,187 @@
+---
+import Base from '../layouts/Base.astro';
+import { STUDIO } from '../data/studio';
+import { TEAM } from '../data/team';
+
+const prenotabili = TEAM.filter((p) => !p.placeholder);
+const telHref = `tel:${STUDIO.telefono.replace(/\s/g, '')}`;
+const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${encodeURIComponent('Ciao! Vorrei informazioni su una visita allo Studio Juvenilia.')}`;
+---
+
+<Base
+  title="Contatti e prenotazioni | Studio Juvenilia — Via Giotto 28, Caserta"
+  description="Contatta lo Studio Juvenilia a Caserta: telefono, WhatsApp, mappa e modulo di prenotazione. Via Giotto 28, 81100 Caserta. Prenota la tua valutazione fisioterapica."
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-6xl px-5">
+      <nav aria-label="Percorso" class="text-sm text-ink/50">
+        <a href="/" class="hover:text-coral-600">Home</a> / <span>Contatti</span>
+      </nav>
+      <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
+        Parliamone di persona
+      </h1>
+
+      <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+        <div class="space-y-6">
+          <div class="rounded-3xl border border-teal-900/10 bg-white p-7 shadow-sm" data-reveal>
+            <h2 class="font-display text-xl font-semibold text-teal-900">Dove siamo</h2>
+            <address class="mt-2 not-italic text-ink/80">
+              {STUDIO.indirizzo.via}, {STUDIO.indirizzo.cap} {STUDIO.indirizzo.citta} ({STUDIO.indirizzo.provincia})
+            </address>
+            <ul class="mt-3 space-y-1 text-sm text-ink/70">
+              {STUDIO.orari.map(({ giorni, ore }) => (
+                <li><span class="font-medium">{giorni}:</span> {ore}</li>
+              ))}
+            </ul>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a href={telHref} data-magnetic class="rounded-full bg-teal-700 px-5 py-2.5 text-sm font-semibold text-paper hover:bg-teal-900">
+                📞 Chiama ora
+              </a>
+              <a href={waHref} rel="noopener" target="_blank" class="rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white hover:brightness-95">
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div class="overflow-hidden rounded-3xl border border-teal-900/10 shadow-sm" data-reveal>
+            <iframe
+              title="Mappa: Studio Juvenilia, Via Giotto 28, Caserta"
+              src={`https://www.openstreetmap.org/export/embed.html?bbox=${STUDIO.geo.lng - 0.006}%2C${STUDIO.geo.lat - 0.004}%2C${STUDIO.geo.lng + 0.006}%2C${STUDIO.geo.lat + 0.004}&layer=mapnik&marker=${STUDIO.geo.lat}%2C${STUDIO.geo.lng}`}
+              class="h-72 w-full border-0"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="space-y-8">
+          <!-- Prenotazione demo -->
+          <div id="prenota" class="scroll-mt-24 rounded-3xl border border-teal-900/10 bg-white p-7 shadow-sm" data-reveal>
+            <h2 class="font-display text-xl font-semibold text-teal-900">Prenota una valutazione</h2>
+            <p class="mt-1 text-xs font-semibold uppercase tracking-wide text-amber-400">
+              ⚠ Demo — le disponibilità mostrate sono simulate
+            </p>
+
+            <label class="mt-5 block text-sm font-medium text-ink/80" for="prof-select">Con chi vuoi prenotare?</label>
+            <select id="prof-select" class="mt-2 w-full rounded-xl border border-teal-900/20 bg-paper px-4 py-2.5 text-sm">
+              {prenotabili.map((p) => <option value={p.slug}>{p.nome} — {p.ruolo.split('—')[0]}</option>)}
+            </select>
+
+            <div id="slots" class="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3" aria-live="polite">
+              <p class="col-span-full text-sm text-ink/50">Caricamento disponibilità…</p>
+            </div>
+
+            <form id="booking-form" class="mt-5 hidden space-y-3">
+              <p id="slot-scelto" class="text-sm font-semibold text-teal-700"></p>
+              <input required name="nome" placeholder="Nome e cognome" autocomplete="name" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
+              <input required name="telefono" type="tel" placeholder="Telefono" autocomplete="tel" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
+              <button type="submit" class="w-full rounded-full bg-coral-500 py-3 font-semibold text-white hover:bg-coral-600">
+                Conferma prenotazione (demo)
+              </button>
+            </form>
+            <p id="booking-esito" class="mt-4 hidden rounded-xl bg-teal-50 p-4 text-sm text-teal-900" role="status"></p>
+          </div>
+
+          <!-- Form contatto GDPR -->
+          <div class="rounded-3xl border border-teal-900/10 bg-white p-7 shadow-sm" data-reveal>
+            <h2 class="font-display text-xl font-semibold text-teal-900">Scrivici</h2>
+            <form id="contact-form" class="mt-4 space-y-3" novalidate>
+              <input required name="nome" placeholder="Nome e cognome *" autocomplete="name" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
+              <input required name="email" type="email" placeholder="Email *" autocomplete="email" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
+              <textarea required name="messaggio" rows="4" placeholder="Come possiamo aiutarti? *" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm"></textarea>
+              <p class="text-xs leading-relaxed text-ink/60">
+                Ti chiediamo di <strong>non inserire nel messaggio informazioni dettagliate sulla tua
+                salute</strong>: ne parleremo di persona o al telefono.
+              </p>
+              <label class="flex items-start gap-2 text-xs text-ink/70">
+                <input required type="checkbox" name="privacy" class="mt-0.5" />
+                <span>
+                  Ho letto l'<a href="/privacy" class="underline">informativa privacy</a> e acconsento al
+                  trattamento dei dati per ricontattarmi. *
+                </span>
+              </label>
+              <label class="flex items-start gap-2 text-xs text-ink/70">
+                <input type="checkbox" name="salute" class="mt-0.5" />
+                <span>
+                  Se il messaggio contiene informazioni sul mio stato di salute, acconsento
+                  esplicitamente al trattamento di tali dati (art. 9 GDPR).
+                </span>
+              </label>
+              <button type="submit" class="rounded-full bg-teal-700 px-7 py-2.5 text-sm font-semibold text-paper hover:bg-teal-900">
+                Invia il messaggio
+              </button>
+              <p id="contact-esito" class="hidden rounded-xl bg-teal-50 p-4 text-sm text-teal-900" role="status"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { bookingProvider, type Slot } from '../lib/booking';
+
+  const select = document.getElementById('prof-select') as HTMLSelectElement;
+  const slotsEl = document.getElementById('slots')!;
+  const form = document.getElementById('booking-form') as HTMLFormElement;
+  const sceltoEl = document.getElementById('slot-scelto')!;
+  const esitoEl = document.getElementById('booking-esito')!;
+  let slotScelto: Slot | null = null;
+
+  const giorniIt = ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'];
+
+  async function carica() {
+    slotsEl.innerHTML = '<p class="col-span-full text-sm text-ink/50">Caricamento disponibilità…</p>';
+    form.classList.add('hidden');
+    esitoEl.classList.add('hidden');
+    const slots = await bookingProvider.disponibilita(select.value, new Date(), 7);
+    if (!slots.length) {
+      slotsEl.innerHTML = '<p class="col-span-full text-sm text-ink/50">Nessuna disponibilità nei prossimi giorni: chiamaci!</p>';
+      return;
+    }
+    slotsEl.innerHTML = '';
+    for (const s of slots.slice(0, 12)) {
+      const d = new Date(s.data + 'T00:00');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className =
+        'rounded-xl border border-teal-300 bg-paper px-2 py-2 text-xs font-medium text-teal-900 hover:bg-teal-700 hover:text-paper transition-colors';
+      btn.textContent = `${giorniIt[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1} · ${s.ora}`;
+      btn.addEventListener('click', () => {
+        slotScelto = s;
+        sceltoEl.textContent = `Hai scelto: ${giorniIt[d.getDay()]} ${d.getDate()}/${d.getMonth() + 1} alle ${s.ora}`;
+        form.classList.remove('hidden');
+        form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      slotsEl.appendChild(btn);
+    }
+  }
+
+  select.addEventListener('change', carica);
+  carica();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!slotScelto) return;
+    const dati = new FormData(form);
+    const res = await bookingProvider.prenota(slotScelto, {
+      nome: String(dati.get('nome')),
+      telefono: String(dati.get('telefono')),
+    });
+    form.classList.add('hidden');
+    esitoEl.classList.remove('hidden');
+    esitoEl.textContent = `✓ Richiesta registrata (demo) — codice ${res.codice}. In produzione riceverai una conferma via SMS/WhatsApp.`;
+  });
+
+  // Form contatto: demo front-end only (in produzione: endpoint/form provider)
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!contactForm.reportValidity()) return;
+    const esito = document.getElementById('contact-esito')!;
+    esito.classList.remove('hidden');
+    esito.textContent =
+      '✓ Messaggio pronto per l’invio (demo). In produzione il modulo invierà i dati a un endpoint sicuro con notifica email allo studio.';
+    contactForm.reset();
+  });
+</script>

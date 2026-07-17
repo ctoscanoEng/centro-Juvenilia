@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import { STUDIO } from '../data/studio';
+---
+
+<Base
+  title="Note legali | Studio Juvenilia"
+  description="Note legali e informazioni societarie dello Studio Juvenilia di Caserta."
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-3xl space-y-6 px-5 leading-relaxed text-ink/85">
+      <h1 class="font-display text-4xl font-semibold text-teal-900">Note legali</h1>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Dati societari</h2>
+      <p>
+        [PLACEHOLDER: denominazione legale completa]<br />
+        Sede: {STUDIO.indirizzo.via}, {STUDIO.indirizzo.cap} {STUDIO.indirizzo.citta} ({STUDIO.indirizzo.provincia})<br />
+        P.IVA: [PLACEHOLDER] · C.F.: [PLACEHOLDER]<br />
+        PEC: [PLACEHOLDER] · REA: [PLACEHOLDER se applicabile]
+      </p>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Informazione sanitaria</h2>
+      <p>
+        I contenuti di questo sito hanno finalità informativa e sono redatti nel rispetto della
+        normativa in materia di pubblicità sanitaria (L. 145/2018, art. 1 commi 525-536). Non
+        contengono promesse di guarigione né messaggi suggestivi: ogni percorso terapeutico richiede
+        una valutazione professionale individuale. Le informazioni presenti non sostituiscono in
+        alcun caso il parere del medico.
+      </p>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Proprietà intellettuale</h2>
+      <p>
+        Testi, illustrazioni e contenuti del sito sono di proprietà dello Studio Juvenilia, salvo
+        dove diversamente indicato. Ne è vietata la riproduzione non autorizzata.
+      </p>
+    </div>
+  </section>
+</Base>

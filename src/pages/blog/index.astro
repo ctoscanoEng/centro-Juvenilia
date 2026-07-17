@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.bozza)).sort(
+  (a, b) => b.data.data.valueOf() - a.data.data.valueOf(),
+);
+---
+
+<Base
+  title="Blog | Studio Juvenilia — Consigli di fisioterapia e prevenzione"
+  description="Il blog dello Studio Juvenilia di Caserta: articoli su fisioterapia, prevenzione degli infortuni, postura e ritorno allo sport, scritti dal nostro team."
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-4xl px-5">
+      <nav aria-label="Percorso" class="text-sm text-ink/50">
+        <a href="/" class="hover:text-coral-600">Home</a> / <span>Blog</span>
+      </nav>
+      <h1 class="mt-4 font-display text-4xl font-semibold text-teal-900 md:text-6xl" data-reveal>
+        Capire il proprio corpo
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-ink/70" data-reveal>
+        Articoli brevi, seri e senza allarmismi su dolore, movimento e prevenzione.
+      </p>
+
+      <div class="mt-12 space-y-6">
+        {
+          posts.map((post) => (
+            <a
+              href={`/blog/${post.id.replace(/\.md$/, '')}`}
+              class="block rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              data-reveal
+            >
+              <time datetime={post.data.data.toISOString()} class="text-xs font-semibold uppercase tracking-wider text-coral-600">
+                {post.data.data.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+              <h2 class="mt-2 font-display text-2xl font-semibold text-teal-900">{post.data.titolo}</h2>
+              <p class="mt-2 text-sm text-ink/70">{post.data.descrizione}</p>
+              <span class="mt-4 inline-block text-sm font-semibold text-coral-500">Leggi →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

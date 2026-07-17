@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import { STUDIO } from '../data/studio';
+---
+
+<Base
+  title="Privacy policy | Studio Juvenilia"
+  description="Informativa sul trattamento dei dati personali dello Studio Juvenilia di Caserta ai sensi del Regolamento UE 2016/679 (GDPR)."
+>
+  <section class="py-16">
+    <div class="mx-auto max-w-3xl space-y-6 px-5 leading-relaxed text-ink/85">
+      <h1 class="font-display text-4xl font-semibold text-teal-900">Informativa privacy</h1>
+      <p class="text-sm text-ink/50">Ai sensi degli artt. 13-14 del Regolamento UE 2016/679 (GDPR)</p>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Titolare del trattamento</h2>
+      <p>
+        Studio Juvenilia — {STUDIO.indirizzo.via}, {STUDIO.indirizzo.cap} {STUDIO.indirizzo.citta} ({STUDIO.indirizzo.provincia})<br />
+        [PLACEHOLDER: denominazione legale completa, P.IVA/C.F., email PEC del titolare]
+      </p>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Dati trattati e finalità</h2>
+      <ul class="ml-5 list-disc space-y-2">
+        <li>
+          <strong>Dati di contatto</strong> (nome, email, telefono) inviati tramite i moduli del sito:
+          trattati al solo fine di ricontattarti e gestire la tua richiesta. Base giuridica: consenso
+          (art. 6.1.a GDPR).
+        </li>
+        <li>
+          <strong>Dati relativi alla salute</strong> eventualmente contenuti nei messaggi: trattati
+          esclusivamente previo tuo <strong>consenso esplicito</strong> (art. 9.2.a GDPR). Ti invitiamo a
+          non inserire dettagli clinici nei moduli: verranno raccolti di persona nel contesto della
+          prestazione sanitaria.
+        </li>
+        <li>
+          <strong>Dati di navigazione tecnici</strong>: il sito non utilizza strumenti di profilazione né
+          analytics di terze parti.
+        </li>
+      </ul>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Principio di minimizzazione</h2>
+      <p>
+        Raccogliamo solo i dati strettamente necessari a rispondere alla tua richiesta. I dati non
+        vengono ceduti a terzi né trasferiti fuori dall'Unione Europea, salvo obblighi di legge.
+      </p>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">Conservazione</h2>
+      <p>
+        I messaggi di contatto sono conservati per il tempo necessario a gestire la richiesta e
+        comunque non oltre [PLACEHOLDER: definire termine, es. 12 mesi]. La documentazione sanitaria
+        segue i termini di legge previsti per le prestazioni sanitarie.
+      </p>
+
+      <h2 class="font-display text-xl font-semibold text-teal-900">I tuoi diritti</h2>
+      <p>
+        Puoi esercitare in ogni momento i diritti previsti dagli artt. 15-22 GDPR (accesso, rettifica,
+        cancellazione, limitazione, opposizione, portabilità) scrivendo a
+        <a href={`mailto:${STUDIO.email}`} class="text-teal-700 underline">{STUDIO.email}</a>. Hai
+        inoltre diritto di proporre reclamo al Garante per la protezione dei dati personali.
+      </p>
+
+      <p class="text-sm text-ink/50">
+        Ultimo aggiornamento: luglio 2026. [PLACEHOLDER: questa informativa è una bozza tecnica e va
+        validata da un consulente privacy prima della pubblicazione]
+      </p>
+    </div>
+  </section>
+</Base>

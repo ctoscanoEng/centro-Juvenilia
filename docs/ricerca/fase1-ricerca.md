@@ -1,7 +1,16 @@
 # FASE 1 — Ricerca e analisi (Studio Juvenilia, Caserta)
 
-> Data ricerca: 17 luglio 2026. Tutte le informazioni sul team sono **[DA CONFERMARE]**
-> con i founder prima della pubblicazione (⛔ CHECKPOINT 1).
+> Data ricerca: 17 luglio 2026.
+
+## ✅ ESITO CHECKPOINT 1 (confermato dal committente, 17/7/2026)
+
+- **Team da pubblicare sul sito**: Alessandro Bossa, Luigi Gagliardi, Donato Eremita.
+- Nello staff ci sono anche **Ivano** e **Michele** (fisioterapista neolaureato):
+  card predisposte come [PLACEHOLDER] finché non arrivano cognomi e bio verificati.
+- **Bio formativa di Alessandro Bossa**: confermata, usare i dati MioDottore.
+- **Donato Eremita**: lavora nel centro ma NON è il titolare → intestazione MyAdj
+  obsoleta; dati societari nelle note legali come [PLACEHOLDER].
+- **Instagram**: il committente fornirà screenshot; proseguire intanto con le altre fasi.
 
 ## 1.1 Analisi Instagram — @studio.juvenilia
 

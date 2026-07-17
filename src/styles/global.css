@@ -1,0 +1,71 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/figtree';
+
+/*
+  Design tokens — Studio Juvenilia
+  Variante attiva: A "Clinica Mediterranea" (teal profondo + corallo)
+  Varianti alternative documentate in docs/design/direzione-creativa.md
+*/
+@theme {
+  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Base neutra calda, non "verde ospedale" */
+  --color-paper: #f9f7f3;
+  --color-ink: #10282e;
+
+  /* Teal clinico profondo — fiducia */
+  --color-teal-50: #eef6f6;
+  --color-teal-100: #d5eaea;
+  --color-teal-300: #7fbfbf;
+  --color-teal-500: #2e7d7d;
+  --color-teal-700: #1c5a5e;
+  --color-teal-900: #123c40;
+
+  /* Corallo caldo — empatia e CTA */
+  --color-coral-100: #ffe8e0;
+  --color-coral-400: #ff8a65;
+  --color-coral-500: #f46f4d;
+  --color-coral-600: #d95535;
+
+  /* Ambra di supporto */
+  --color-amber-400: #f2b95c;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-coral-400);
+  color: var(--color-paper);
+}
+
+/* Accessibilità: siamo in ambito sanitario, il motion si disattiva davvero */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visibile WCAG 2.1 AA */
+:focus-visible {
+  outline: 3px solid var(--color-coral-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

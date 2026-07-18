@@ -10,6 +10,8 @@ const SITE_URL = 'https://www.studiojuvenilia.it';
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
+  // Rispetta la porta assegnata dall'ambiente (es. preview/CI); default 4321
+  server: { port: Number(process.env.PORT) || 4321 },
   integrations: [
     sitemap({
       filter: (page) =>

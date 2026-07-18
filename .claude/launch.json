@@ -4,8 +4,9 @@
     {
       "name": "juvenilia-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 4321
+      "runtimeArgs": ["run", "dev", "--", "--force"],
+      "port": 4321,
+      "autoPort": true
     }
   ]
 }

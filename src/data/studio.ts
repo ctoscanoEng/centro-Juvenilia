@@ -13,8 +13,11 @@ export const STUDIO = {
   },
   // Fonte: post Instagram @studio.juvenilia (luglio 2026)
   telefono: '+39 0823 325585',
-  whatsapp: '+39 349 3011533', // linea diretta Alessandro — sostituire se lo studio preferisce altro numero
+  // Numero unico prenotazioni (confermato dal committente, 18/7/2026):
+  // riceve le richieste WhatsApp e la segreteria conferma l'appuntamento.
+  whatsapp: '+39 349 152 5646',
   contattiDiretti: [
+    { nome: 'Prenotazioni (WhatsApp)', numero: '+39 349 152 5646' },
     { nome: 'Alessandro', numero: '+39 349 3011533' },
     { nome: 'Luigi', numero: '+39 333 3358253' },
     { nome: 'Donato', numero: '+39 339 3762771' },

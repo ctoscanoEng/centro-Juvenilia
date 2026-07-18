@@ -123,7 +123,7 @@ const zoneJson = JSON.stringify(
           .map((p) => `<li class="text-sm"><span class="font-semibold">${p.nome}</span> — ${p.ruolo}</li>`)
           .join('')}
       </ul>
-      <a href="/contatti#prenota" data-magnetic class="mt-8 inline-block rounded-full bg-coral-500 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-600">
+      <a href="/contatti?zona=${zonaId}#prenota" data-magnetic class="mt-8 inline-block rounded-full bg-coral-500 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-coral-600">
         Prenota una valutazione
       </a>`;
   }
@@ -143,9 +143,12 @@ const zoneJson = JSON.stringify(
   })();
 
   // Fallback statico: silhouette SVG se WebGL manca o il modulo 3D non carica.
-  // I pulsanti-zona restano il percorso d'interazione.
+  // Anche qui i punti-zona sono cliccabili; i pulsanti sotto restano il
+  // percorso accessibile da tastiera/screen reader.
   function fallbackSvg() {
     document.getElementById('body3d-hint')?.remove();
+    const dot = (zona: string, cx: number, cy: number, r: number) =>
+      `<circle data-zona="${zona}" cx="${cx}" cy="${cy}" r="${r}" style="cursor:pointer"/>`;
     container.insertAdjacentHTML(
       'afterbegin',
       `<svg viewBox="0 0 300 400" class="h-full w-full" aria-hidden="true">
@@ -158,17 +161,24 @@ const zoneJson = JSON.stringify(
           <rect x="127" y="232" width="20" height="120" rx="10"/>
           <rect x="153" y="232" width="20" height="120" rx="10"/>
         </g>
-        <g fill="#7fbfbf" opacity="0.9">
-          <circle cx="150" cy="34" r="12"/>
-          <circle cx="150" cy="96" r="10"/>
-          <circle cx="104" cy="102" r="11"/><circle cx="196" cy="102" r="11"/>
-          <circle cx="150" cy="150" r="14"/>
-          <circle cx="150" cy="212" r="12"/>
-          <circle cx="137" cy="290" r="10"/><circle cx="163" cy="290" r="10"/>
-          <circle cx="137" cy="345" r="9"/><circle cx="163" cy="345" r="9"/>
+        <g fill="#7fbfbf" opacity="0.9" id="fallback-zone">
+          ${dot('testa', 150, 50, 13)}
+          ${dot('cervicale', 150, 94, 11)}
+          ${dot('spalla', 104, 102, 12)}${dot('spalla', 196, 102, 12)}
+          ${dot('gomito', 82, 148, 10)}${dot('gomito', 218, 148, 10)}
+          ${dot('polso', 70, 188, 9)}${dot('polso', 230, 188, 9)}
+          ${dot('schiena', 150, 148, 15)}
+          ${dot('bacino', 150, 214, 13)}
+          ${dot('anca', 128, 238, 10)}${dot('anca', 172, 238, 10)}
+          ${dot('ginocchio', 137, 290, 11)}${dot('ginocchio', 163, 290, 11)}
+          ${dot('caviglia', 137, 345, 10)}${dot('caviglia', 163, 345, 10)}
         </g>
       </svg>`,
     );
+    container.querySelector('#fallback-zone')?.addEventListener('click', (e) => {
+      const zona = (e.target as SVGElement).dataset?.zona;
+      if (zona) render(zona);
+    });
   }
 
   if (supportsWebGL) {

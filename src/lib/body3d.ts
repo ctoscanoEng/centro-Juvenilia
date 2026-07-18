@@ -16,6 +16,7 @@ import {
   Scene,
   SphereGeometry,
   Vector2,
+  Vector3,
   WebGLRenderer,
 } from 'three';
 
@@ -81,6 +82,22 @@ function buildBody(): Group {
   return g;
 }
 
+/** Zona più vicina (in coordinate mondo) a un punto: rende cliccabile TUTTO il corpo. */
+function nearestZone(point: Vector3, zoneMeshes: Mesh[]): Mesh {
+  const world = new Vector3();
+  let best = zoneMeshes[0];
+  let bestD = Infinity;
+  for (const m of zoneMeshes) {
+    m.getWorldPosition(world);
+    const d = world.distanceToSquared(point);
+    if (d < bestD) {
+      bestD = d;
+      best = m;
+    }
+  }
+  return best;
+}
+
 export interface Body3DHandle {
   select(zonaId: string | null): void;
   destroy(): void;
@@ -100,6 +117,9 @@ export function mountBody3D(container: HTMLElement): Body3DHandle {
   renderer.domElement.setAttribute('aria-hidden', 'true');
 
   const body = buildBody();
+  // I segmenti anatomici vanno raccolti PRIMA di aggiungere le sfere-zona:
+  // anche loro sono bersagli di click (mappati alla zona più vicina).
+  const bodyMeshes = [...body.children] as Mesh[];
   scene.add(body);
 
   scene.add(new AmbientLight(0xffffff, 0.9));
@@ -146,43 +166,64 @@ export function mountBody3D(container: HTMLElement): Body3DHandle {
     }
   };
 
-  const pick = (e: PointerEvent): Mesh | null => {
+  /**
+   * Tutto il corpo è cliccabile: un hit diretto su una sfera-zona vince,
+   * un hit su un segmento anatomico viene mappato alla zona più vicina
+   * al punto d'impatto. Solo il vuoto non seleziona nulla.
+   */
+  const pick = (clientX: number, clientY: number): Mesh | null => {
     const r = renderer.domElement.getBoundingClientRect();
-    pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    pointer.set(((clientX - r.left) / r.width) * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
     raycaster.setFromCamera(pointer, camera);
-    return (raycaster.intersectObjects(zoneMeshes)[0]?.object as Mesh) ?? null;
+    const hit = raycaster.intersectObjects([...zoneMeshes, ...bodyMeshes])[0];
+    if (!hit) return null;
+    const mesh = hit.object as Mesh;
+    return mesh.userData.zonaId ? mesh : nearestZone(hit.point, zoneMeshes);
   };
 
+  // Rotazione con drag orizzontale + selezione al rilascio (tap ≠ drag)
+  let dragging = false;
+  let lastX = 0;
+  let targetRotY = 0;
+  let downX = 0;
+  let downY = 0;
+  let moved = 0;
+
+  renderer.domElement.style.touchAction = 'pan-y'; // il tap seleziona, lo scroll verticale resta libero
   renderer.domElement.addEventListener('pointermove', (e) => {
-    hovered = pick(e);
+    hovered = pick(e.clientX, e.clientY);
     renderer.domElement.style.cursor = hovered ? 'pointer' : 'grab';
     paint();
   });
 
   renderer.domElement.addEventListener('pointerdown', (e) => {
-    const hit = pick(e);
-    if (hit) {
-      activeId = hit.userData.zonaId;
-      paint();
-      container.dispatchEvent(
-        new CustomEvent('zona-selezionata', { detail: { zonaId: activeId }, bubbles: true }),
-      );
-    }
-  });
-
-  // rotazione: drag orizzontale + idle sway
-  let dragging = false;
-  let lastX = 0;
-  let targetRotY = 0;
-  renderer.domElement.addEventListener('pointerdown', (e) => {
     dragging = true;
     lastX = e.clientX;
+    downX = e.clientX;
+    downY = e.clientY;
+    moved = 0;
   });
-  addEventListener('pointerup', () => (dragging = false));
+
   addEventListener('pointermove', (e) => {
-    if (dragging) {
-      targetRotY += (e.clientX - lastX) * 0.008;
-      lastX = e.clientX;
+    if (!dragging) return;
+    moved = Math.max(moved, Math.hypot(e.clientX - downX, e.clientY - downY));
+    if (moved >= 8) targetRotY += (e.clientX - lastX) * 0.008;
+    lastX = e.clientX;
+  });
+
+  addEventListener('pointerup', (e) => {
+    if (!dragging) return;
+    dragging = false;
+    // sotto gli 8px è un tap: seleziona la zona; oltre era una rotazione
+    if (moved < 8) {
+      const hit = pick(e.clientX, e.clientY);
+      if (hit) {
+        activeId = hit.userData.zonaId;
+        paint();
+        container.dispatchEvent(
+          new CustomEvent('zona-selezionata', { detail: { zonaId: activeId }, bubbles: true }),
+        );
+      }
     }
   });
 

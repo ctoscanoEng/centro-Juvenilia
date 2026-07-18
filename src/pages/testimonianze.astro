@@ -38,7 +38,7 @@ const partnership = [
         Lo sport che si è fidato di noi
       </h2>
       <p class="mt-2 text-sm text-ink/70" data-reveal>
-        Partnership storiche del centro. [PLACEHOLDER: confermare elenco attuale con lo studio]
+        Alcune delle realtà sportive che negli anni si sono affidate al centro.
       </p>
       <ul class="mt-6 flex flex-wrap gap-3" data-reveal>
         {
@@ -52,11 +52,27 @@ const partnership = [
         Le parole dei pazienti
       </h2>
       <div class="mt-6 grid gap-5 md:grid-cols-2" data-reveal>
-        <div class="rounded-3xl border-2 border-dashed border-teal-300 p-8 text-center text-sm text-ink/70">
-          [PLACEHOLDER: testimonianza reale — con consenso scritto del paziente]
-        </div>
-        <div class="rounded-3xl border-2 border-dashed border-teal-300 p-8 text-center text-sm text-ink/70">
-          [PLACEHOLDER: testimonianza reale — con consenso scritto del paziente]
+        <figure class="rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm">
+          <svg viewBox="0 0 110 20" class="w-28" aria-label="5 stelle su 5" role="img">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <path
+                d={`M${10 + i * 22} 2l2.4 5 5.5.7-4 3.9 1 5.4-4.9-2.7-4.9 2.7 1-5.4-4-3.9 5.5-.7z`}
+                fill="#f2b95c"
+              />
+            ))}
+          </svg>
+          <blockquote class="mt-4 text-sm leading-relaxed text-ink/80">
+            «Ho conosciuto lo Studio Juvenilia 10 anni fa per iniziare un percorso di fisioterapia
+            dopo un intervento alla spalla sinistra. È stato la mia salvezza… una precisa e accurata
+            fisioterapia con recupero totale dell'uso della spalla, grazie al lavoro formidabile di
+            validi professionisti che hanno seguito il mio percorso a 360°. Dopo 10 anni ho dovuto
+            operare anche la spalla destra, ricevendo la stessa professionalità e recupero totale.»
+          </blockquote>
+          <figcaption class="mt-4 text-xs text-ink/70">Tina C. — recensione pubblicata dallo studio</figcaption>
+        </figure>
+        <div class="flex items-center rounded-3xl border-2 border-dashed border-teal-300 p-8 text-center text-sm text-ink/70">
+          Qui arriveranno le prossime storie di recupero: se sei stato bene con noi, la tua può
+          essere la prossima.
         </div>
       </div>
 
@@ -75,7 +91,7 @@ const partnership = [
         >
           Lascia una recensione su Google
         </a>
-        <p class="mt-4 text-xs text-paper/70">Link diretto al profilo Google dello studio. [PLACEHOLDER: place ID reale]</p>
+       
       </div>
     </div>
   </section>

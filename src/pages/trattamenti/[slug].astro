@@ -8,7 +8,7 @@ export function getStaticPaths() {
 }
 
 const { trattamento: t } = Astro.props;
-const specialisti = TEAM.filter((p) => !p.placeholder && p.trattamenti.includes(t.slug));
+const specialisti = TEAM.filter((p) => p.trattamenti.includes(t.slug));
 
 const schema = [
   {

@@ -27,5 +27,5 @@ export function trattamentiPerZona(zonaId: string) {
 
 export function professionistiPerZona(zonaId: string) {
   const slugs = new Set(trattamentiPerZona(zonaId).map((t) => t.slug));
-  return TEAM.filter((p) => !p.placeholder && p.trattamenti.some((t) => slugs.has(t)));
+  return TEAM.filter((p) => p.trattamenti.some((t) => slugs.has(t)));
 }

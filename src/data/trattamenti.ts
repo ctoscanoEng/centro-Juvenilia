@@ -274,6 +274,102 @@ export const TRATTAMENTI: Trattamento[] = [
       },
     ],
   },
+  {
+    slug: 'ozonoterapia',
+    nome: 'Ozonoterapia',
+    metaTitle: 'Ozonoterapia a Caserta | Studio Juvenilia — Via Giotto 28',
+    metaDescription:
+      'Ozonoterapia a Caserta per ernie discali, dolori articolari e infiammazioni croniche. Studio Juvenilia, studio di medicina fisica e riabilitazione. Prenota una valutazione.',
+    sottotitolo: 'L’ossigeno-ozono terapia contro dolore e infiammazione',
+    descrizione: [
+      'L’ozonoterapia sfrutta le proprietà antinfiammatorie e rigeneranti della miscela di ossigeno e ozono per trattare dolori articolari, ernie discali e infiammazioni croniche che rispondono poco alle terapie tradizionali.',
+      'Allo Studio Juvenilia il trattamento è sempre inserito in un percorso riabilitativo completo: l’ozonoterapia riduce dolore e infiammazione, il lavoro fisioterapico corregge le cause meccaniche del problema.',
+    ],
+    perChi: [
+      'Ernie e protrusioni discali',
+      'Lombalgie e sciatalgie ricorrenti',
+      'Dolori articolari e artrosi',
+      'Infiammazioni tendinee croniche',
+    ],
+    comeFunziona: [
+      'Valutazione clinica e della documentazione medica',
+      'Definizione del ciclo di sedute con il medico',
+      'Trattamenti mirati sulla zona interessata',
+      'Integrazione con il percorso fisioterapico',
+    ],
+    zone: ['schiena', 'cervicale', 'ginocchio', 'anca'],
+    faq: [
+      {
+        domanda: 'L’ozonoterapia è dolorosa? Ha effetti collaterali?',
+        risposta:
+          'Il trattamento è generalmente ben tollerato e gli effetti collaterali sono rari e transitori. Ogni ciclo inizia comunque con una valutazione medica che verifica l’indicazione e le eventuali controindicazioni individuali.',
+      },
+    ],
+  },
+  {
+    slug: 'massoterapia',
+    nome: 'Massoterapia',
+    metaTitle: 'Massoterapia a Caserta | Massaggio terapeutico — Studio Juvenilia',
+    metaDescription:
+      'Massoterapia a Caserta: massaggio terapeutico per contratture, tensioni muscolari e recupero post-sforzo. Studio Juvenilia, Via Giotto 28. Prenota il tuo trattamento.',
+    sottotitolo: 'Il massaggio terapeutico che scioglie tensioni e contratture',
+    descrizione: [
+      'La massoterapia è la manipolazione dei tessuti eseguita dalle mani del terapeuta: una serie di tecniche mirate per alleviare il disagio causato da traumi, sovraccarichi e posture scorrette.',
+      'Non un semplice massaggio: ogni seduta parte dalla valutazione della zona da trattare e usa la tecnica giusta — dal linfodrenaggio al trigger point release miofasciale — per l’obiettivo terapeutico.',
+    ],
+    perChi: [
+      'Contratture e tensioni muscolari',
+      'Dolori da postura scorretta o sovraccarico lavorativo',
+      'Recupero muscolare post-allenamento e post-gara',
+      'Edemi e ristagni linfatici (linfodrenaggio)',
+    ],
+    comeFunziona: [
+      'Valutazione della zona e del tipo di tensione',
+      'Scelta della tecnica (decontratturante, miofasciale, linfodrenante)',
+      'Trattamento manuale mirato',
+      'Consigli di gestione ed esercizi complementari',
+    ],
+    zone: ['cervicale', 'spalla', 'schiena', 'gomito', 'ginocchio', 'caviglia'],
+    faq: [
+      {
+        domanda: 'Che differenza c’è tra massoterapia e un massaggio estetico?',
+        risposta:
+          'La massoterapia è un trattamento sanitario con finalità terapeutica: viene eseguita da professionisti della riabilitazione, dopo una valutazione, con tecniche scelte in base al problema da trattare.',
+      },
+    ],
+  },
+  {
+    slug: 'valutazione-baropodometrica',
+    nome: 'Esame baropodometrico',
+    metaTitle: 'Esame baropodometrico a Caserta | Analisi del passo — Studio Juvenilia',
+    metaDescription:
+      'Esame baropodometrico a Caserta: analisi della postura, del passo e del baricentro corporeo su pedana elettronica. Studio Juvenilia, Via Giotto 28.',
+    sottotitolo: 'Postura, passo ed equilibrio misurati sulla pedana',
+    descrizione: [
+      'L’esame baropodometrico analizza su pedana elettronica come i tuoi piedi appoggiano al suolo, da fermi e durante il cammino: pressioni, baricentro, equilibrio e fasi del passo diventano dati misurabili.',
+      'È lo strumento ideale per capire l’origine di dolori a piedi, ginocchia, anche e colonna, e per costruire percorsi posturali e plantari su misura basati su numeri, non su impressioni.',
+    ],
+    perChi: [
+      'Dolori a piedi, ginocchia, anche o colonna di origine posturale',
+      'Squilibri dell’appoggio plantare e del passo',
+      'Sportivi che vogliono ottimizzare il gesto e prevenire infortuni',
+      'Controllo dell’equilibrio e valutazioni pre/post trattamento',
+    ],
+    comeFunziona: [
+      'Analisi statica: pressioni plantari e baricentro da fermo',
+      'Analisi dinamica: fasi del passo durante il cammino',
+      'Valutazione dell’equilibrio e della stabilità',
+      'Report con dati oggettivi e piano di lavoro',
+    ],
+    zone: ['caviglia', 'ginocchio', 'anca', 'schiena'],
+    faq: [
+      {
+        domanda: 'Quanto dura l’esame baropodometrico ed è invasivo?',
+        risposta:
+          'L’esame dura circa 20-30 minuti, è completamente indolore e non invasivo: si cammina a piedi nudi su una pedana elettronica che registra pressioni ed equilibrio.',
+      },
+    ],
+  },
 ];
 
 export const getTrattamento = (slug: string) => TRATTAMENTI.find((t) => t.slug === slug);

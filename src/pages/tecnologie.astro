@@ -3,18 +3,28 @@ import Base from '../layouts/Base.astro';
 
 const tecnologie = [
   {
-    nome: 'Dinamometro isocinetico',
-    testo: 'Il cuore del Juvenilia Lab: misura la forza muscolare in ogni grado di movimento e permette un rinforzo sempre al massimo, in sicurezza. [PLACEHOLDER: modello esatto]',
+    nome: 'Macchinario isocinetico',
+    testo: 'Il cuore del Juvenilia Lab: test di prestazione muscolare, rinforzo con contrazioni isometriche e isotoniche, resistenza adattata alla forza espressa in ogni grado di movimento.',
     tag: 'Test e rinforzo',
   },
   {
+    nome: 'Pedana baropodometrica',
+    testo: 'Analisi elettronica della postura, del passo e del baricentro corporeo: l’appoggio plantare e l’equilibrio diventano dati misurabili.',
+    tag: 'Valutazione',
+  },
+  {
     nome: 'Tecarterapia',
-    testo: 'Diatermia capacitiva e resistiva per accelerare i processi riparativi di muscoli, tendini e articolazioni.',
+    testo: 'Diatermia capacitiva e resistiva per accelerare i processi riparativi di muscoli, tendini e articolazioni; usata anche a supporto del linfodrenaggio.',
     tag: 'Terapia strumentale',
   },
   {
     nome: 'Onde d’urto focali',
-    testo: 'Trattamento mirato di tendinopatie croniche, calcificazioni e fasciti che non rispondono alle terapie tradizionali.',
+    testo: 'Onde acustiche ad alta energia per patologie muscolo-tendinee e ossee: stimolano la rigenerazione tissutale riducendo infiammazione e dolore.',
+    tag: 'Terapia strumentale',
+  },
+  {
+    nome: 'SISS — Campi magnetici pulsati focali',
+    testo: 'Stimolazione dei tessuti muscolari superficiali e profondi con radiofrequenza: efficace sull’edema osseo e sul recupero muscolare.',
     tag: 'Terapia strumentale',
   },
   {
@@ -83,16 +93,39 @@ const tecnologie = [
     }
   })();
 
+  // Fallback statico se WebGL manca o il caricamento del modulo 3D fallisce
+  function fallbackSvg() {
+    el.querySelector('p')?.remove();
+    el.insertAdjacentHTML(
+      'afterbegin',
+      `<svg viewBox="0 0 400 400" class="h-full w-full" aria-hidden="true">
+        <rect x="70" y="330" width="260" height="20" rx="10" fill="#123c40"/>
+        <rect x="120" y="120" width="24" height="215" rx="10" fill="#1c5a5e"/>
+        <circle cx="132" cy="100" r="34" fill="#123c40"/>
+        <circle cx="132" cy="100" r="14" fill="#f2b95c"/>
+        <rect x="126" y="130" width="14" height="110" rx="7" fill="#d95535" transform="rotate(-16 133 130)"/>
+        <rect x="205" y="235" width="110" height="16" rx="8" fill="#1c5a5e"/>
+        <rect x="295" y="150" width="16" height="100" rx="8" fill="#1c5a5e" transform="rotate(12 303 150)"/>
+      </svg>`,
+    );
+  }
+
   if (supportsWebGL) {
     const io = new IntersectionObserver(
       async ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
-        const { mountMachine3D } = await import('../lib/machine3d');
-        mountMachine3D(el);
+        try {
+          const { mountMachine3D } = await import('../lib/machine3d');
+          mountMachine3D(el);
+        } catch {
+          fallbackSvg();
+        }
       },
       { rootMargin: '200px' },
     );
     io.observe(el);
+  } else {
+    fallbackSvg();
   }
 </script>

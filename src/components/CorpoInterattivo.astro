@@ -142,19 +142,51 @@ const zoneJson = JSON.stringify(
     }
   })();
 
+  // Fallback statico: silhouette SVG se WebGL manca o il modulo 3D non carica.
+  // I pulsanti-zona restano il percorso d'interazione.
+  function fallbackSvg() {
+    document.getElementById('body3d-hint')?.remove();
+    container.insertAdjacentHTML(
+      'afterbegin',
+      `<svg viewBox="0 0 300 400" class="h-full w-full" aria-hidden="true">
+        <g fill="#1c5a5e">
+          <circle cx="150" cy="60" r="26"/>
+          <rect x="118" y="92" width="64" height="110" rx="30"/>
+          <rect x="126" y="200" width="48" height="34" rx="16"/>
+          <rect x="86" y="98" width="22" height="86" rx="11" transform="rotate(14 97 98)"/>
+          <rect x="192" y="98" width="22" height="86" rx="11" transform="rotate(-14 203 98)"/>
+          <rect x="127" y="232" width="20" height="120" rx="10"/>
+          <rect x="153" y="232" width="20" height="120" rx="10"/>
+        </g>
+        <g fill="#7fbfbf" opacity="0.9">
+          <circle cx="150" cy="34" r="12"/>
+          <circle cx="150" cy="96" r="10"/>
+          <circle cx="104" cy="102" r="11"/><circle cx="196" cy="102" r="11"/>
+          <circle cx="150" cy="150" r="14"/>
+          <circle cx="150" cy="212" r="12"/>
+          <circle cx="137" cy="290" r="10"/><circle cx="163" cy="290" r="10"/>
+          <circle cx="137" cy="345" r="9"/><circle cx="163" cy="345" r="9"/>
+        </g>
+      </svg>`,
+    );
+  }
+
   if (supportsWebGL) {
     const io = new IntersectionObserver(
       async ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
-        const { mountBody3D } = await import('../lib/body3d');
-        handle = mountBody3D(container);
+        try {
+          const { mountBody3D } = await import('../lib/body3d');
+          handle = mountBody3D(container);
+        } catch {
+          fallbackSvg();
+        }
       },
       { rootMargin: '200px' },
     );
     io.observe(container);
   } else {
-    document.getElementById('body3d-hint')?.remove();
-    container.classList.add('hidden');
+    fallbackSvg();
   }
 </script>

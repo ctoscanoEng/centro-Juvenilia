@@ -6,12 +6,12 @@ import CorpoInterattivo from '../components/CorpoInterattivo.astro';
 import { TRATTAMENTI } from '../data/trattamenti';
 import { TEAM } from '../data/team';
 
-const founders = TEAM.filter((p) => p.founder);
+const teamHome = TEAM.slice(0, 2);
 ---
 
 <Base
   title="Studio Juvenilia — Fisioterapia e riabilitazione sportiva a Caserta"
-  description="Centro di fisioterapia, osteopatia e riabilitazione sportiva a Caserta, Via Giotto 28. Percorsi personalizzati, tecnologie avanzate e il progetto Juvenilia Lab. Prenota una valutazione."
+  description="Studio di medicina fisica e riabilitazione a Caserta, Via Giotto 28: fisioterapia, osteopatia, ozonoterapia e riabilitazione sportiva. Percorsi personalizzati e Juvenilia Lab. Prenota una valutazione."
 >
   <Hero />
   <PercorsoPaziente />
@@ -81,7 +81,7 @@ const founders = TEAM.filter((p) => p.founder);
       </h2>
       <div class="mt-10 grid gap-5 md:grid-cols-2">
         {
-          founders.map((p) => (
+          teamHome.map((p) => (
             <article class="rounded-3xl border border-teal-900/10 bg-white p-8 shadow-sm" data-reveal>
               <h3 class="font-display text-xl font-semibold text-teal-900">{p.nome}</h3>
               <p class="mt-1 text-sm font-medium text-coral-700">{p.ruolo}</p>

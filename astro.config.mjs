@@ -26,5 +26,8 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    // Nessuno script/asset inline nell'HTML: consente una CSP con
+    // `script-src 'self'` (vedi public/_headers) e migliora il caching.
+    build: { assetsInlineLimit: 0 },
   },
 });

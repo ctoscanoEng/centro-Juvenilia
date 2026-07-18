@@ -70,6 +70,8 @@ const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${en
           <div class="rounded-3xl border border-teal-900/10 bg-white p-7 shadow-sm" data-reveal>
             <h2 class="font-display text-xl font-semibold text-teal-900">Scrivici</h2>
             <form id="contact-form" class="mt-4 space-y-3" novalidate>
+              <!-- honeypot anti-spam: invisibile agli umani, i bot lo compilano -->
+              <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
               <input required name="nome" placeholder="Nome e cognome *" autocomplete="name" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
               <input required name="email" type="email" placeholder="Email *" autocomplete="email" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm" />
               <textarea required name="messaggio" rows="4" placeholder="Come possiamo aiutarti? *" class="w-full rounded-xl border border-teal-900/20 px-4 py-2.5 text-sm"></textarea>
@@ -104,15 +106,73 @@ const waHref = `https://wa.me/${STUDIO.whatsapp.replace(/[\s+]/g, '')}?text=${en
 </Base>
 
 <script>
-  // Form contatto: demo front-end only (in produzione: endpoint/form provider)
+  /*
+    Invio del form contatti via Web3Forms (https://web3forms.com):
+    nessun backend proprio, il servizio inoltra il messaggio alla casella
+    dello studio senza conservare i dati. La chiave è pubblica per design
+    (vincolata alla casella di destinazione) e arriva da PUBLIC_WEB3FORMS_KEY.
+  */
+  const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY as string | undefined;
+
   const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-  contactForm.addEventListener('submit', (e) => {
+  const submitBtn = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const esito = document.getElementById('contact-esito')!;
+
+  function mostraEsito(testo: string, errore = false) {
+    esito.classList.remove('hidden');
+    esito.classList.toggle('bg-teal-50', !errore);
+    esito.classList.toggle('text-teal-900', !errore);
+    esito.classList.toggle('bg-coral-500/10', errore);
+    esito.classList.toggle('text-coral-700', errore);
+    esito.textContent = testo;
+  }
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!contactForm.reportValidity()) return;
-    const esito = document.getElementById('contact-esito')!;
-    esito.classList.remove('hidden');
-    esito.textContent =
-      '✓ Messaggio pronto per l’invio (demo). In produzione il modulo invierà i dati a un endpoint sicuro con notifica email allo studio.';
-    contactForm.reset();
+
+    if (!WEB3FORMS_KEY) {
+      console.warn('PUBLIC_WEB3FORMS_KEY non configurata: impostala in .env o nelle variabili di build.');
+      mostraEsito(
+        'Il modulo non è al momento disponibile. Scrivici su WhatsApp o chiamaci: trovi i contatti qui accanto.',
+        true,
+      );
+      return;
+    }
+
+    const dati = new FormData(contactForm);
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Invio in corso…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Nuovo messaggio dal sito — Studio Juvenilia',
+          from_name: 'Sito Studio Juvenilia',
+          name: String(dati.get('nome')),
+          email: String(dati.get('email')), // usato come reply-to
+          message: String(dati.get('messaggio')),
+          'Consenso privacy': dati.get('privacy') ? 'sì' : 'no',
+          'Consenso dati salute (art. 9)': dati.get('salute') ? 'sì' : 'no',
+          botcheck: dati.get('botcheck') ? 'on' : '',
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message ?? res.statusText);
+      mostraEsito('✓ Messaggio inviato! Ti ricontatteremo il prima possibile negli orari di apertura.');
+      contactForm.reset();
+    } catch (err) {
+      console.error('Invio form fallito:', err);
+      mostraEsito(
+        'Non siamo riusciti a inviare il messaggio. Riprova tra qualche minuto, oppure scrivici su WhatsApp o chiamaci.',
+        true,
+      );
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Invia il messaggio';
+    }
   });
 </script>
